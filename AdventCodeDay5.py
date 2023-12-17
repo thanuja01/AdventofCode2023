@@ -114,6 +114,7 @@ def partTwoMethodB():
     seedsInfo = {}
     seedLocations = []
     with open("C:\\Users\\thanu\\OneDrive\\Documents\\Advent of Code 2023\\dayfive.txt","r") as data:
+        ##add in all data
         currentkey= ""
         seedsInfo['seeds'] = []
         for line in data:
@@ -128,16 +129,18 @@ def partTwoMethodB():
             else:
                 seedsInfo[key].append(line.split())
     print('original dict created...')
+    ##sort seeds in increasing order
     for key in seedsInfo.keys():
         seedsInfo[key] = (sorted(seedsInfo[key], key=itemgetter(1)))
     splits = []
-
+    ##create ranges for my seeds and add them all to splits in pairs
     for i in range(0,len(seedsInfo['seeds'][0]),2):
         splits.append([int(seedsInfo['seeds'][0][i]),int(seedsInfo['seeds'][0][i])+round(int(seedsInfo['seeds'][0][i+1])/4)])
         splits.append([int(seedsInfo['seeds'][0][i])+round(int(seedsInfo['seeds'][0][i+1])/4)+1,int(seedsInfo['seeds'][0][i])+round(int(seedsInfo['seeds'][0][i+1])/4)*2+1])
       #  splits.append([int(seedsInfo['seeds'][0][i])+round(int(seedsInfo['seeds'][0][i+1])/4)*2+2,int(seedsInfo['seeds'][0][i])+round(int(seedsInfo['seeds'][0][i+1])/4)*3+2])
         splits.append([int(seedsInfo['seeds'][0][i])+round(int(seedsInfo['seeds'][0][i+1])/4)*2+2,int(seedsInfo['seeds'][0][i])+int(seedsInfo['seeds'][0][i+1])])
     print('ranges added...',splits)
+    ##calculate the final location map of each bound of each range
     for split in splits:
         
         for bound in split:                
@@ -157,7 +160,7 @@ def partTwoMethodB():
             finalLocation(maps,seedsInfo,mapped,seedLocations) 
      print(splits)
      print(seedLocations)
-                
+    ##this is something i used for another method, no longer needed            
     if seedLocations.index(min(seedLocations))%2 == 1:
         lowestLocationRange =  splits[seedLocations.index(min(seedLocations)) -1]
     else:
